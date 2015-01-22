@@ -1,3 +1,0 @@
-Aardvark.Algodat.BitmapConvertible, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.PixImageSetConvertible, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.RawImageConvertible, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -1,1 +1,0 @@
-Aardvark.SceneGraph.TextureFilteringValue, Aardvark.SceneGraph.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -8,7 +8,7 @@
     <ProjectGuid>{61CB3447-A9F1-4E34-BDCE-6936388949FE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimpleViewer</RootNamespace>
+    <RootNamespace>FractalLandscape</RootNamespace>
     <AssemblyName>SimpleViewer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EnvSelector.cs" />
+    <Compile Include="MyApp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,2 +1,0 @@
-Aardvark.Algodat.PixImageSet, Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.PixImageSet+Info, Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

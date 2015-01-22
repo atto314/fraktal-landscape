@@ -1,8 +1,0 @@
-Aardvark.Algodat.PolyLine, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.Mesh, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.Mesh+FromVrml97Options, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.PolyMesh, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.PolyMesh+LoadVrml97Options, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.BspTree, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.GeometryInfo, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Algodat.VertexGeometry, Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

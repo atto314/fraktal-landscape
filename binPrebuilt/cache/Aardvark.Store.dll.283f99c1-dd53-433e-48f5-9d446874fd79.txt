@@ -1,2 +1,0 @@
-Aardvark.Store.Blob, Aardvark.Store, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Store.BlobSpec, Aardvark.Store, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

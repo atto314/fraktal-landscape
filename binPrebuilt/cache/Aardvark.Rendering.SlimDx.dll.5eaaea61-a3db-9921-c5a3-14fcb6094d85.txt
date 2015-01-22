@@ -1,4 +1,0 @@
-Aardvark.Rendering.SlimDx10.SlimDx10TextureConvertible, Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Rendering.SlimDx.SlimDx9Renderer, Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Rendering.SlimDx.SlimDx9TextureConvertible, Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Aardvark.Rendering.SlimDx.SlimDx9TextureConvertible+SlimDx9TextureParameters, Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
