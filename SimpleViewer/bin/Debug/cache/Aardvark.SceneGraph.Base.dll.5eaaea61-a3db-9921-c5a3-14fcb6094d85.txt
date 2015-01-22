@@ -1,0 +1,2 @@
+Aardvark.SceneGraph.EmptyLeaf, Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.SceneGraph.RuleMap, Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

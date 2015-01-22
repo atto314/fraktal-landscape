@@ -1,0 +1,224 @@
+ 0: environment info .......................................................
+ 0:   starting up     : 12/13/2014 6:04:26 AM
+ 0:   bitness         : 64-bit
+ 0:   os-version      : Microsoft Windows NT 6.2.9200.0
+ 0:   processor count : 4
+ 0:   clr version     : 4.0.30319.34011
+ 0:   working set     : 27131904
+ 0:   machine name    : JOHNDEERE
+ 0:   user name       : Josef
+ 0:   
+ 0:   DEPLOY build
+ 0:   
+ 0: environment info ................................................. 0.031 s
+ 0: initializing kernel ....................................................
+ 0:   [created ] kernel timer
+ 0:   [created ] kernel command queue
+ 0:   [created ] kernel event queue
+ 0:   [created ] kernel event table
+ 0:   [created ] kernel environment map
+ 0:   starting storage service .............................................
+ 0:     storage service ....................................................
+ 0:       queue created
+ 0:       started storage service thread
+ 0:     storage service .............................................. 0.001 s
+ 0:     [created ] kernel storage service
+ 0:   starting storage service ....................................... 0.004 s
+ 0:   waiting for composition task .........................................
+ 1: composing ..............................................................
+ 1:   executing OnStartup methods ..........................................
+ 1:     [cache hit ] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.IO, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Parser.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Rendering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Kernel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged.Diagnostics, Version=1.0.3894.34301, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Bootstrapping, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Rules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.State, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Store, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Physics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     WARNING: long running 00.163s  EmptyLeaf.ExecuteOnStartup
+ 1:     [cache hit ] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.IO, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Parser.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Rendering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Kernel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged.Diagnostics, Version=1.0.3894.34301, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Bootstrapping, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Rules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.State, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Store, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Physics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     registering rules ..................................................
+ 1:       [rule] EnvSelector
+ 1:       WorldRule has no RuleAttribute
+ 1:       EnvironmentBoxRule has no RuleAttribute
+ 1:       [rule] OnOff
+ 1:       [rule] OnOffEvent
+ 1:       [rule] OnOffFunc
+ 1:       [rule] OnOffSwitch
+ 1:       [rule] MultiOnOffSwitch
+ 1:       [rule] StaticGeometry (static method 'Creator')
+ 1:       [rule] Updater
+ 1:       AnimatedInstanceRenderingRule`1 has no RuleAttribute
+ 1:       AnimatedTrafoRule has no RuleAttribute
+ 1:       [rule] AnimatomVisualization
+ 1:       [rule] Camera
+ 1:       [rule] CameraSync
+ 1:       [rule] ChangeableSceneGraph (static method 'Creator')
+ 1:       [rule] ConfigurableCoordinateCross
+ 1:       [rule] ControlledTrafo
+ 1:       [rule] EnvTriggeredLightSettings
+ 1:       [rule] HeadLight
+ 1:       [rule] FullscreenLayoutRoot
+ 1:       [rule] GridLayout
+ 1:       [rule] LayoutBox
+ 1:       [rule] OnOffEnv
+ 1:       [rule] LayoutContent
+ 1:       [rule] LayoutRoot
+ 1:       [rule] ScrollableLayoutRoot
+ 1:       [rule] SimpleGridLayout
+ 1:       [rule] SimpleLayoutBox
+ 1:       [rule] TextOverlay
+ 1:       [rule] QuickImageQuad
+ 1:       [rule] QuickLineSet
+ 1:       [rule] QuickPlane3d
+ 1:       [rule] QuickPointSet (static method 'Creator')
+ 1:       [rule] QuickPolygon3d
+ 1:       [rule] QuickPolyMesh
+ 1:       [rule] Replicator
+ 1:       [rule] RotorTrafo
+ 1:       [rule] StaticScreenSizeScale
+ 1:       [rule] Selector
+ 1:       [rule] SerializedSceneGraph
+ 1:       [rule] SkyBoxInstance (static method 'Creator')
+ 1:       [rule] StaticBspGeometry (static method 'Creator')
+ 1:       [rule] CrowdReplicator
+ 1:       GeometryChangingSurfaceRule has no RuleAttribute
+ 1:       ShadowDefaultSurfaceRule has no RuleAttribute
+ 1:       SuperShaderRule has no RuleAttribute
+ 1:       ShaderSurfaceRenderingRule has no RuleAttribute
+ 1:       VisibilityShadowMapSurfaceRule has no RuleAttribute
+ 1:       [rule] Trafo
+ 1:       EventHandlerBindingRule`1 has no RuleAttribute
+ 1:       [rule] FormsBinding
+ 1:       [rule] GlobalControllerBinding
+ 1:       [rule] KeyTriggeredBoolEnv
+ 1:       [rule] KeyTriggeredDisplayHelpMessages
+ 1:       [rule] KeyTriggeredSelectorEnv
+ 1:       [rule] LocalControllerBinding
+ 1:       [rule] UIBinding
+ 1:       [rule] UIMultiBinding
+ 1:       [rule] WinFormsProperties
+ 1:       [rule] VertexGeometry
+ 1:       [rule] VertexGeometrySet
+ 1:       [rule] ViewTrafo
+ 1:       [rule] RenderToTextureBinding
+ 1:       [rule] RenderControlBinding
+ 1:       [rule] RendererBinding
+ 1:       [rule] RenderFormBinding
+ 1:       [rule] RenderTaskProperties
+ 1:       [rule] ResourceManager
+ 1:     registering rules ............................................ 0.018 s
+ 1:     WARNING: long running 00.052s  RuleMap.Init
+ 1:     WARNING: long running 00.060s  ArrayVectorExtensions.Init
+ 1:     WARNING: long running 00.058s  BitmapConvertible.Init
+ 1:   executing OnStartup methods .................................... 0.626 s
+ 1:   adding type infos ....................................................
+ 1:     [cache hit ] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.IO, Version=1.0.2.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Parser.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Rendering, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Kernel, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged.Diagnostics, Version=1.0.3894.34301, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Bootstrapping, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Unmanaged, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Rules, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.SceneGraph.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.State, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Store, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Math.Physics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ 1:   adding type infos .............................................. 0.025 s
+ 1: composing ........................................................ 0.652 s
+ 0:   waiting for composition task ................................... 0.657 s
+ 0: initializing kernel .............................................. 0.669 s
+ 0: kernel: starting
+ 0: starting kernel                                                    0.018 s
+ 0: Texture filtering capabilities:
+ 0:   MaxAnisotropy: 16
+ 0: 270 fps
+ 0: 400 fps
+ 0: 738 fps
+ 0: 751 fps
+ 0: 733 fps
+ 0: log2 of sensitivity ............. 0,50
+ 0: sensitivity ..................... 1,41
+ 0: 672 fps
+ 0: 757 fps
+ 0: 736 fps
+ 0: 773 fps
+ 0: 781 fps
+ 0: 783 fps
+ 0: 778 fps
+ 0: 771 fps
+ 0: 778 fps
+ 0: 785 fps
+ 0: 410 fps
+ 0: 737 fps
+ 0: 110 fps
+ 0: 263 fps
+ 0: 414 fps
+ 0: 410 fps
+ 0: 459 fps
+ 0: 407 fps
+ 0: 323 fps
+ 0: 420 fps
+ 0: 451 fps
+ 0: 447 fps
+ 0: 422 fps
+ 0: 327 fps
+ 0: 362 fps
+ 0: Disposing Textures
+ 0: kernel: stopped
+ 0: stopping storage service thread
+ 0: stopped storage service thread
+ 0: cleaning up temp files done
+ 0: shutting down   : 12/13/2014 6:05:01 AM

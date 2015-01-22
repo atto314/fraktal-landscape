@@ -1,0 +1,6 @@
+Aardvark.Algodat.RawDds, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.RawJpeg, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.RawPng, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.RawBmp, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.RawTiff, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.RawTga, Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

@@ -1,0 +1,16 @@
+Aardvark.Control.BoolButtonToggleBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.BoolCheckBoxBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.BoolStateCheckBoxBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.DateTimeDateTimePickerBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.DoubleNumericUpDownBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.DoubleTextBoxBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.FloatNumericUpDownBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.FractionFractionPickerBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.IntNumericUpDownBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.KeyboardWinFormsBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.LongNumericUpDownBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.MouseWinFormsBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.DoubleTrackBarBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.StringTextBoxBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.V3dUpDownBinder, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Control.BoolState, Aardvark.Control, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

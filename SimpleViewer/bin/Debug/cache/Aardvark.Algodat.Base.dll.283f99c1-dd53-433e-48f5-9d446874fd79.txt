@@ -1,0 +1,2 @@
+Aardvark.Algodat.CacheParameters, Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Algodat.CacheElements, Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

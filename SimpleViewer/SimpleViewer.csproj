@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61CB3447-A9F1-4E34-BDCE-6936388949FE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimpleViewer</RootNamespace>
+    <AssemblyName>SimpleViewer</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aardvark.State, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\binPrebuilt\Aardvark.State.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Unmanaged, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b4a0b484e2e046a, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BinPrebuilt\Aardvark.Unmanaged.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EnvSelector.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Aardvark.Algodat.Convertibles, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Algodat.Convertibles.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Algodat.Rendering, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Algodat.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.IO, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Kernel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Rendering.SlimDx.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Rendering.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Store, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Store.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Algodat.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Algodat.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Algodat.Geometry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Algodat.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Algodat.Images, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Algodat.Images.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Math.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Runtime.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.SceneGraph.Base, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.SceneGraph.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.SceneGraph.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.SceneGraph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.SceneGraph.Rules, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.SceneGraph.Rules.dll</HintPath>
+    </Reference>
+    <Reference Include="Aardvark.Bootstrapping, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\BinPrebuilt\Aardvark.Bootstrapping.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
