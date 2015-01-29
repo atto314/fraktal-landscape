@@ -17,9 +17,11 @@ namespace FractalLandscape
     {
 
         private SimpleRenderApplication app;
+        private FractalTerrain myTerrain;
 
         public void init(SlimDx9Renderer Dx9Renderer)
         {
+
             app = new SimpleRenderApplication(Dx9Renderer, true);
 
             app.Init();
@@ -29,7 +31,7 @@ namespace FractalLandscape
             app.MainViewTrafo.LookAt.Val = V3d.Zero;
 
             // Background color
-            app.BackgroundColor = new C4f(0.7, 1.0, 0.0);
+            app.BackgroundColor = new C4f(0.7, 0.8, 0.9);
 
             // Default camera controller
             app.CameraController.MouseCursorHidingEnabled = true;
@@ -48,6 +50,8 @@ namespace FractalLandscape
             app.OverlayVRVisInfoEnabled = true;
             app.ShowGlobalBoundingBox = false;
             app.ShowGlobalAxes = true;
+
+            app.GlobalFillMode = FillMode.Wireframe;
         }
 
         public void run()
@@ -97,10 +101,17 @@ namespace FractalLandscape
 
         private void initScene()
         {
-            //TODO
-            // Center scene doesn't work probably because there is no scene graph
+            myTerrain = new FractalTerrain();
 
+            var group = Sg.Group();
+
+            //generate a terrain up to a certain lod level, then put the result into the scene graph
+            int lodLevel = 4;
+            myTerrain.buildTerrain(lodLevel); 
+
+            group.Add(myTerrain.toVertexGeometrySet(lodLevel));
+
+            app.SemanticSceneGraph = group;
         }
-
     }
 }

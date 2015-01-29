@@ -45,8 +45,7 @@ namespace FractalLandscape
             var myApp = new MyApp();
 
             // Initialization method using SlimDx9Renderer
-            var renderer = new SlimDx9Renderer();
-            myApp.init(renderer);
+            myApp.init(new SlimDx9Renderer());
 
             // Start app
             myApp.run();
