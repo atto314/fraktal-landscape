@@ -19,9 +19,21 @@ namespace FractalLandscape
         public float y { get; set; }
         public float z { get; set; }
 
+        public C4b color = C4b.White;
+
         public V3f toV3f()
         {
-            return new V3f(x, y, z);
+            V3f result = new V3f(x, y, z);
+
+            return result;
+        }
+
+        public void normalizeForWater()
+        {
+            if(z<0)
+            {
+                z = 0;
+            }
         }
 
     }
@@ -35,6 +47,11 @@ namespace FractalLandscape
 
     }
 
+    class MyColorization
+    {
+        public C4b[] colors;
+    }
+
     class MyTerrain
     {
         public int size;
@@ -46,6 +63,14 @@ namespace FractalLandscape
         }
 
         public MyVertex[,] terr {get;set;}
+
+        public void normalizeForWater()
+        {
+            foreach(MyVertex v in terr)
+            {
+                v.normalizeForWater();
+            }
+        }
     }
 
     class MyTerrainLod
@@ -62,7 +87,31 @@ namespace FractalLandscape
         public void setTerrainLod(int level, MyTerrain terrain)
         {
             terrainLod.Add(level, terrain);
-            vgLod.Add(level, terrainToVg(terrain));
+        }
+
+        public void finalize(bool normalizeForWater)
+        {
+
+            foreach (int level in terrainLod.Keys)
+            {
+                MyTerrain currentTerr = this.getTerrainLod(level);
+                if (normalizeForWater)
+                {
+                    currentTerr.normalizeForWater();
+                }
+
+            }
+        }
+
+        public void render()
+        {
+
+            foreach (int level in terrainLod.Keys)
+            {
+                MyTerrain currentTerr = this.getTerrainLod(level);
+
+                vgLod.Add(level, this.terrainToVg(currentTerr));
+            }
         }
 
         public MyTerrain getTerrainLod(int level)
@@ -92,6 +141,7 @@ namespace FractalLandscape
             for (int x = 0; x < terrain.size; x++ )
             {
                 VerticesList.Add(terrain.terr[x, 0].toV3f());
+                ColorsList.Add(terrain.terr[x, 0].color);
             }
 
             //for all vertex positions, take the right, bottom and bottom right neighbours position, add the two missing vertices (bottom and bottom-right) to the vertex list, 
@@ -100,11 +150,13 @@ namespace FractalLandscape
             {
                 //in each column, add the bottom neighbour
                 VerticesList.Add(terrain.terr[0, y + 1].toV3f());
+                ColorsList.Add(terrain.terr[0, y + 1].color);
 
                 for (int x = 0; x < terrain.size - 1; x++)
                 {
                     //in each row, add the bottom-right neighbour
                     VerticesList.Add(terrain.terr[x + 1, y + 1].toV3f());
+                    ColorsList.Add(terrain.terr[x + 1, y + 1].color);
 
                     //get the serialized indices
                     int currentRowOffset = terrain.size * y;
@@ -128,12 +180,6 @@ namespace FractalLandscape
 
             }
 
-            //TODO the color is currently white.
-            for(int i=0; i<VerticesList.Count; i++)
-            {
-                ColorsList.Add(C4b.White);
-            }
-
             //store the result into a VertexGeometry. 
             var result = new VertexGeometry()
             {
@@ -153,15 +199,29 @@ namespace FractalLandscape
     {
         public float initialScale { get; set; }
 
+        public float roughness = 1.0f;
+        public float flatness = 1.0f;
+
+        public bool drawWater;
+        public bool colorize;
+        public int selectedColorization = 0;
+
+        private Random rand = new Random();
+
         private VertexGeometry vg;
 
         private MyQuad startVertices;
 
         private MyTerrainLod terrainLod;
 
-        public FractalTerrain()
+        private List<MyColorization> colorizations;
+        private C4b waterColor;
+
+        public FractalTerrain(float scale, bool drawWater, bool colorize)
         {
-            initialScale = 50.0f;
+            this.drawWater = drawWater;
+            this.colorize = colorize;
+            initialScale = scale;
             init();
         }
 
@@ -169,6 +229,7 @@ namespace FractalLandscape
         {
             //base mesh is a single plane
             terrainLod = new MyTerrainLod();
+            colorizations = new List<MyColorization>();
 
             startVertices = new MyQuad();
 
@@ -181,12 +242,38 @@ namespace FractalLandscape
 
             vg = quadToVertexGeometry(startVertices);
 
+            //add default colorizations. maybe make more colorizations?
+            MyColorization defaultCol = new MyColorization();
+
+            //12 elements
+            defaultCol.colors = new C4b[] {
+            C4b.Black,
+            C4b.Yellow,
+            C4b.Black,
+            C4b.Yellow,
+            C4b.Black,
+            C4b.Yellow,
+            C4b.Black,
+            C4b.Yellow,
+            C4b.Black,
+            C4b.Yellow,
+            C4b.Black,
+            C4b.Yellow
+            };
+
+            waterColor = C4b.Blue;
+
+
+            colorizations.Add(defaultCol);
+
         }
 
         //generate and store all terrain lod levels up to the specified level
-        public void buildTerrain(int level)
+        public void buildTerrain(int level, float roughness, float flatness)
         {
             //build the terrain from the start vertices up to a tessellation level
+            this.roughness = roughness;
+            this.flatness = flatness;
 
             MyTerrain previousTerr = quadToTerr(startVertices);
             terrainLod.setTerrainLod(0, previousTerr);
@@ -204,7 +291,7 @@ namespace FractalLandscape
                 copyOldTerrainValuesLod(previousTerr, currentTerr);
 
                 //create the new values between the old values
-                generateNewTerrainValues(currentTerr);
+                generateNewTerrainValues(currentTerr, i);
 
                 //add it to our LOD data structure
                 terrainLod.setTerrainLod(i, currentTerr);
@@ -213,11 +300,23 @@ namespace FractalLandscape
                 previousTerr = currentTerr;
             }
 
+            terrainLod.finalize(drawWater);
+
+            //colorize the terrains
+            if (colorize)
+            {
+                foreach (var currentTerr in terrainLod.terrainLod.Values)
+                {
+                    this.colorizeTerrain(currentTerr, colorizations[selectedColorization]);
+                }
+            }
+
+            terrainLod.render();
         }
 
-        private void generateNewTerrainValues(MyTerrain currentTerrain)
+        private void generateNewTerrainValues(MyTerrain currentTerrain, int currentLevel)
         {
-            //in the first of two steps, interpolate 4 vertices diagonally. need only quads of even-indexed vertices, starting from top left
+            //in the first step, interpolate 4 vertices diagonally. need only quads of even-indexed vertices, starting from top left
             for(int x=0; x<currentTerrain.size-2; x=x+2)
             {
                 for(int y=0; y<currentTerrain.size-2; y=y+2)
@@ -228,7 +327,7 @@ namespace FractalLandscape
                     MyVertex bottomLeft = currentTerrain.terr[x, y+2];
                     MyVertex bottomRight = currentTerrain.terr[x+2, y+2];
 
-                    MyVertex newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight);
+                    MyVertex newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight, currentLevel);
 
                     //insert the new vertex into the center of the four
                     currentTerrain.terr[x + 1, y + 1] = newVertex;
@@ -244,26 +343,26 @@ namespace FractalLandscape
                 MyVertex before = currentTerrain.terr[index - 1, 0];
                 MyVertex after = currentTerrain.terr[index + 1, 0];
                 MyVertex inner = currentTerrain.terr[index, 1];
-                currentTerrain.terr[index, 0] = calcNewVertex(before, after, inner);
+                currentTerrain.terr[index, 0] = calcNewVertex(before, after, inner, currentLevel);
 
                 //bottom
                 before = currentTerrain.terr[index - 1, currentTerrain.size - 1];
                 after = currentTerrain.terr[index + 1, currentTerrain.size - 1];
                 inner = currentTerrain.terr[index, currentTerrain.size - 2];
-                currentTerrain.terr[index, currentTerrain.size - 1] = calcNewVertex(before, after, inner);
+                currentTerrain.terr[index, currentTerrain.size - 1] = calcNewVertex(before, after, inner, currentLevel);
 
                 //vertical border
                 //left
                 before = currentTerrain.terr[0, index - 1];
                 after = currentTerrain.terr[0, index + 1];
                 inner = currentTerrain.terr[1, index];
-                currentTerrain.terr[0, index] = calcNewVertex(before, after, inner);
+                currentTerrain.terr[0, index] = calcNewVertex(before, after, inner, currentLevel);
 
                 //right
                 before = currentTerrain.terr[currentTerrain.size - 1, index - 1];
                 after = currentTerrain.terr[currentTerrain.size - 1, index + 1];
                 inner = currentTerrain.terr[currentTerrain.size - 2, index];
-                currentTerrain.terr[currentTerrain.size - 1, index] = calcNewVertex(before, after, inner);
+                currentTerrain.terr[currentTerrain.size - 1, index] = calcNewVertex(before, after, inner, currentLevel);
             }
 
             //inner vertices
@@ -277,7 +376,7 @@ namespace FractalLandscape
                     MyVertex bottomLeft = currentTerrain.terr[index+1, other];
                     MyVertex bottomRight = currentTerrain.terr[index, other+1];
 
-                    MyVertex newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight);
+                    MyVertex newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight, currentLevel);
 
                     currentTerrain.terr[index, other] = newVertex;
 
@@ -287,7 +386,7 @@ namespace FractalLandscape
                     bottomLeft = currentTerrain.terr[other + 1, index];
                     bottomRight = currentTerrain.terr[other, index + 1];
 
-                    newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight);
+                    newVertex = calcNewVertex(topLeft, topRight, bottomLeft, bottomRight, currentLevel);
 
                     currentTerrain.terr[other, index] = newVertex;
                 }
@@ -296,13 +395,13 @@ namespace FractalLandscape
             //result is the new terrain with all previously empty values filled out
         }
 
-        private MyVertex calcNewVertex(MyVertex before, MyVertex after, MyVertex inner)
+        private MyVertex calcNewVertex(MyVertex before, MyVertex after, MyVertex inner, int currentLevel)
         {
             //make a new vertex from three vertices (on the border of a quadratic terrain). interpolate the outer two vertices for x,y values, 
             //add the inner vertex for the height, add random variation
             MyVertex result = new MyVertex();
 
-            float randomVariation = getRandomValue();
+            float randomVariation = getRandomValue(currentLevel);
 
             result.x = (before.x + after.x) / 2.0f;
             result.y = (before.y + after.y) / 2.0f;
@@ -311,12 +410,12 @@ namespace FractalLandscape
             return result;
         }
 
-        private MyVertex calcNewVertex(MyVertex topLeft, MyVertex topRight, MyVertex bottomLeft, MyVertex bottomRight)
+        private MyVertex calcNewVertex(MyVertex topLeft, MyVertex topRight, MyVertex bottomLeft, MyVertex bottomRight, int currentLevel)
         {
             //make new vertex from a quad of four vertices. Interpolate their values and add random variation.
             MyVertex result = new MyVertex();
 
-            float randomVariation = getRandomValue();
+            float randomVariation = getRandomValue(currentLevel);
 
             result.x = (topLeft.x + topRight.x + bottomLeft.x + bottomRight.x) / 4.0f;
             result.y = (topLeft.y + topRight.y + bottomLeft.y + bottomRight.y) / 4.0f;
@@ -398,22 +497,35 @@ namespace FractalLandscape
             quad.v4.z = quad.v4.z * factor;
         }
 
-        private float getRandomValue()
+        private float getRandomValue(int level)
         {
-            //TODO return a random value to be used as variation in the terrain
+            //return a random value to be used as variation in the terrain
             float result = 0.0f;
+            
+            double sigma = 1.0d;
+
+            //sigma = sigma * (double)initialScale;
+
+            double stdDev = Math.Pow(sigma, 2.0d) / Math.Pow(2.0d, (double)level * (double)roughness);
+
+            //gaussian distribution RNG taken from http://stackoverflow.com/questions/218060/random-gaussian-variables
+            double u1 = rand.NextDouble(); //these are uniform(0,1) random doubles
+            double u2 = rand.NextDouble();
+            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
+                         Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+            double randNormal =
+                         0 + stdDev * randStdNormal; //random normal(mean,stdDev^2)
+
+            result = (float)randNormal*initialScale;
+
+            //make the terrain flatter in the first level
+            if(level < 3)
+            {
+                result = result * 1.0f / flatness;
+            }
 
             return result;
         }
-
-        /*
-        public Sg.VertexGeometrySet toVertexGeometrySet()
-        {
-            var vgs = new Sg.VertexGeometrySet() { VertexGeometryList = vg.IntoList() };
-
-            return vgs;
-        }
-         * */
 
         //returns the terrain with the selected lod level.
         public Sg.VertexGeometrySet toVertexGeometrySet(int LodLevel)
@@ -421,6 +533,59 @@ namespace FractalLandscape
             var vgs = new Sg.VertexGeometrySet() { VertexGeometryList = terrainLod.getVgLod(LodLevel).IntoList() };
 
             return vgs;
+        }
+
+        private void colorizeTerrain(MyTerrain terrain, MyColorization colors)
+        {
+            //for each vertex, linearly map its z value onto the color list (from lowest to highest)
+
+            float minimumZ = 0;
+            float maximumZ = 0;
+            foreach(var vert in terrain.terr)
+            {
+                var currentZ = vert.z;
+                if (currentZ < minimumZ)
+                {
+                    minimumZ = currentZ;
+                }
+                if (currentZ > maximumZ)
+                {
+                    maximumZ = currentZ;
+                }
+            }
+
+            //numerical errors
+            float delta = 0.000001f;
+            minimumZ = minimumZ - delta;
+            maximumZ = maximumZ + delta;
+
+            float zRange = maximumZ - minimumZ;
+
+            C4b[] col = colors.colors;
+            int numCol = col.Length-1;
+
+            foreach (var vert in terrain.terr)
+            {
+                //get normalized color index
+                var currentZ = vert.z;
+
+                if(drawWater)
+                {
+                    if(currentZ<delta)
+                    {
+                        vert.color = waterColor;
+                        continue;
+                    }
+                }
+                
+
+                float colorIndex = ((vert.z - minimumZ) / zRange) * (float)numCol;
+
+                int currentColorIndex = (int)colorIndex;
+
+                vert.color = col[currentColorIndex];
+            }
+
         }
 
     }

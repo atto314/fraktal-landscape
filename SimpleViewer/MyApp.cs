@@ -52,6 +52,7 @@ namespace FractalLandscape
             app.ShowGlobalAxes = true;
 
             app.GlobalFillMode = FillMode.Wireframe;
+            //app.CenterScene();
         }
 
         public void run()
@@ -101,13 +102,20 @@ namespace FractalLandscape
 
         private void initScene()
         {
-            myTerrain = new FractalTerrain();
+            float terrainScale = 75.0f;
+            float terrainRoughness = 9.0f;
+            float terrainFlatness = 1.5f;
+            bool terrainHasWater = true;
+            bool colorizeTerrain = true;
+            int lodLevel = 8;
+
+            myTerrain = new FractalTerrain(terrainScale, terrainHasWater, colorizeTerrain);
 
             var group = Sg.Group();
 
             //generate a terrain up to a certain lod level, then put the result into the scene graph
-            int lodLevel = 4;
-            myTerrain.buildTerrain(lodLevel); 
+            float currentRoughness = 1.0f / (terrainRoughness / 10.0f);
+            myTerrain.buildTerrain(lodLevel, currentRoughness, terrainFlatness); 
 
             group.Add(myTerrain.toVertexGeometrySet(lodLevel));
 
