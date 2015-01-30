@@ -204,7 +204,7 @@ namespace FractalLandscape
 
         public bool drawWater;
         public bool colorize;
-        public int selectedColorization = 0;
+        public int selectedColorization;
 
         private Random rand = new Random();
 
@@ -245,27 +245,37 @@ namespace FractalLandscape
             //add default colorizations. maybe make more colorizations?
             MyColorization defaultCol = new MyColorization();
 
-            //12 elements
             defaultCol.colors = new C4b[] {
-            C4b.Black,
-            C4b.Yellow,
-            C4b.Black,
-            C4b.Yellow,
-            C4b.Black,
-            C4b.Yellow,
-            C4b.Black,
-            C4b.Yellow,
-            C4b.Black,
-            C4b.Yellow,
-            C4b.Black,
-            C4b.Yellow
+            new C4b(243,247,106),
+            new C4b(252,230,81),
+            new C4b(227,181,82),
+            new C4b(212,187,76),
+            new C4b(209,176,115),
+            new C4b(181,170,123),
+            new C4b(118,168,89),
+            new C4b(118,219,18),
+            new C4b(118,219,18),
+            new C4b(133,237,28),
+            new C4b(133,237,28),
+            new C4b(129,201,142),
+            new C4b(129,201,142),
+            new C4b(154,181,160),
+            new C4b(197,209,206),
+            new C4b(220,242,237),
+            new C4b(235,247,244),
+            new C4b(242,244,245)
             };
 
             waterColor = C4b.Blue;
 
 
             colorizations.Add(defaultCol);
+            selectColorization(0);
+        }
 
+        public void selectColorization(int index)
+        {
+            selectedColorization = index;
         }
 
         //generate and store all terrain lod levels up to the specified level

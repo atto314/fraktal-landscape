@@ -1,16 +1,16 @@
  0: environment info .......................................................
- 0:   starting up     : 1/29/2015 7:20:28 PM
+ 0:   starting up     : 1/30/2015 3:58:45 PM
  0:   bitness         : 64-bit
  0:   os-version      : Microsoft Windows NT 6.3.9600.0
  0:   processor count : 4
  0:   clr version     : 4.0.30319.34011
- 0:   working set     : 31014912
+ 0:   working set     : 39448576
  0:   machine name    : JOHNDEERE
  0:   user name       : Josef
  0:   
  0:   DEPLOY build
  0:   
- 0: environment info ................................................. 0.013 s
+ 0: environment info ................................................. 0.016 s
  0: initializing kernel ....................................................
  0:   [created ] kernel timer
  0:   [created ] kernel command queue
@@ -23,7 +23,7 @@
  0:       started storage service thread
  0:     storage service .............................................. 0.002 s
  0:     [created ] kernel storage service
- 0:   starting storage service ....................................... 0.007 s
+ 0:   starting storage service ....................................... 0.010 s
  0:   waiting for composition task .........................................
  1: composing ..............................................................
  1:   executing OnStartup methods ..........................................
@@ -51,8 +51,7 @@
  1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
- 1:     WARNING: long running 00.068s  ArrayVectorExtensions.Init
- 1:     WARNING: long running 00.051s  BitmapConvertible.Init
+ 1:     WARNING: long running 00.110s  ArrayVectorExtensions.Init
  1:     [cache miss] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
@@ -147,8 +146,8 @@
  1:       [rule] RenderTaskProperties
  1:       [rule] ResourceManager
  1:     registering rules ............................................ 0.015 s
- 1:     WARNING: long running 00.066s  EnvironmentBoxRule.Init
- 1:   executing OnStartup methods .................................... 0.706 s
+ 1:     WARNING: long running 00.068s  EnvironmentBoxRule.Init
+ 1:   executing OnStartup methods .................................... 0.787 s
  1:   adding type infos ....................................................
  1:     [cache miss] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -174,28 +173,19 @@
  1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
- 1:   adding type infos .............................................. 0.027 s
- 1: composing ........................................................ 0.733 s
- 0:   waiting for composition task ................................... 0.747 s
- 0: initializing kernel .............................................. 0.766 s
+ 1:   adding type infos .............................................. 0.028 s
+ 1: composing ........................................................ 0.815 s
+ 0:   waiting for composition task ................................... 0.826 s
+ 0: initializing kernel .............................................. 0.853 s
  0: kernel: starting
  0: starting kernel                                                    0.001 s
  0: Texture filtering capabilities:
  0:   MaxAnisotropy: 16
- 0: 165 fps
- 0: 258 fps
- 0: 235 fps
- 0: 261 fps
- 0: 164 fps
- 0: 210 fps
- 0: 163 fps
- 0: 202 fps
- 0: 236 fps
- 0: 185 fps
- 0: 128 fps
+ 0: 15 fps
  0: Disposing Textures
  0: kernel: stopped
  0: stopping storage service thread
  0: stopped storage service thread
  0: cleaning up temp files done
- 0: shutting down   : 1/29/2015 7:20:42 PM
+ 0: shutting down   : 1/30/2015 3:58:49 PM
+ 0: WARNING: exiting application...

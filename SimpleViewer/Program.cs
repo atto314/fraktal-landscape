@@ -44,11 +44,16 @@ namespace FractalLandscape
 
             var myApp = new MyApp();
 
+            var toolsWindow = new UserControl1();
+
             // Initialization method using SlimDx9Renderer
-            myApp.init(new SlimDx9Renderer());
+            myApp.init(new SlimDx9Renderer(), toolsWindow);
+
+            toolsWindow.init(myApp);
 
             // Start app
             myApp.run();
+
         }
     }
 }

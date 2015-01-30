@@ -13,14 +13,16 @@ using Aardvark.State;
 
 namespace FractalLandscape
 {
-    class MyApp
+    public class MyApp
     {
 
         private SimpleRenderApplication app;
         private FractalTerrain myTerrain;
+        private UserControl1 toolsWindow;
 
-        public void init(SlimDx9Renderer Dx9Renderer)
+        public void init(SlimDx9Renderer Dx9Renderer, UserControl1 toolsWindow)
         {
+            this.toolsWindow = toolsWindow;
 
             app = new SimpleRenderApplication(Dx9Renderer, true);
 
@@ -43,6 +45,9 @@ namespace FractalLandscape
             // Set up scene
             initScene();
 
+            // Set up the toolbox WPF window
+            toolsWindow.Show();
+
             // Set flags
             app.GlobalCullMode = CullMode.Clockwise;
             app.HeadLightEnabled = true;
@@ -52,6 +57,7 @@ namespace FractalLandscape
             app.ShowGlobalAxes = true;
 
             app.GlobalFillMode = FillMode.Wireframe;
+            app.Renderer.AntiAliasingMode = AntiAliasingMode.FourSamples;
             //app.CenterScene();
         }
 
@@ -59,6 +65,15 @@ namespace FractalLandscape
         {
             app.Show();
             app.Run();
+        }
+
+        public void shutdown()
+        {
+            app.Hide();
+            myTerrain = null;
+            app = null;
+            Kernel.Stop();
+            Kernel.KillProcess();
         }
 
         private void initTriggers()
