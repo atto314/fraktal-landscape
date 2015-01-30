@@ -217,6 +217,8 @@ namespace FractalLandscape
         private List<MyColorization> colorizations;
         private C4b waterColor;
 
+        private int maxlevel;
+
         public FractalTerrain(float scale, bool drawWater, bool colorize)
         {
             this.drawWater = drawWater;
@@ -281,6 +283,8 @@ namespace FractalLandscape
         //generate and store all terrain lod levels up to the specified level
         public void buildTerrain(int level, float roughness, float flatness)
         {
+            maxlevel = level;
+
             //build the terrain from the start vertices up to a tessellation level
             this.roughness = roughness;
             this.flatness = flatness;
@@ -529,7 +533,7 @@ namespace FractalLandscape
             result = (float)randNormal*initialScale;
 
             //make the terrain flatter in the first level
-            if(level < 3)
+            if(level < ((float)maxlevel/2.0f))
             {
                 result = result * 1.0f / flatness;
             }

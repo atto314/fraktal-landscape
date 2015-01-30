@@ -20,6 +20,13 @@ namespace FractalLandscape
         private FractalTerrain myTerrain;
         private UserControl1 toolsWindow;
 
+        public float terrainScale = 75.0f;
+        public float terrainRoughness = 9.0f;
+        public float terrainFlatness = 1.5f;
+        public bool terrainHasWater = true;
+        public bool colorizeTerrain = true;
+        public int lodLevel = 8;
+
         public void init(SlimDx9Renderer Dx9Renderer, UserControl1 toolsWindow)
         {
             this.toolsWindow = toolsWindow;
@@ -43,9 +50,12 @@ namespace FractalLandscape
             initTriggers();
 
             // Set up scene
-            initScene();
+            //initScene();
 
             // Set up the toolbox WPF window
+            toolsWindow.Left = 0;
+            toolsWindow.Top = 0;
+            toolsWindow.ResizeMode = System.Windows.ResizeMode.NoResize;
             toolsWindow.Show();
 
             // Set flags
@@ -59,6 +69,11 @@ namespace FractalLandscape
             app.GlobalFillMode = FillMode.Wireframe;
             app.Renderer.AntiAliasingMode = AntiAliasingMode.FourSamples;
             //app.CenterScene();
+        }
+
+        public void generateNewScene()
+        {
+            initScene();
         }
 
         public void run()
@@ -117,12 +132,7 @@ namespace FractalLandscape
 
         private void initScene()
         {
-            float terrainScale = 75.0f;
-            float terrainRoughness = 9.0f;
-            float terrainFlatness = 1.5f;
-            bool terrainHasWater = true;
-            bool colorizeTerrain = true;
-            int lodLevel = 8;
+
 
             myTerrain = new FractalTerrain(terrainScale, terrainHasWater, colorizeTerrain);
 

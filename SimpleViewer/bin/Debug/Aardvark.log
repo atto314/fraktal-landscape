@@ -1,16 +1,16 @@
  0: environment info .......................................................
- 0:   starting up     : 1/30/2015 3:58:45 PM
+ 0:   starting up     : 1/30/2015 5:41:58 PM
  0:   bitness         : 64-bit
  0:   os-version      : Microsoft Windows NT 6.3.9600.0
  0:   processor count : 4
  0:   clr version     : 4.0.30319.34011
- 0:   working set     : 39448576
+ 0:   working set     : 38998016
  0:   machine name    : JOHNDEERE
  0:   user name       : Josef
  0:   
  0:   DEPLOY build
  0:   
- 0: environment info ................................................. 0.016 s
+ 0: environment info ................................................. 0.105 s
  0: initializing kernel ....................................................
  0:   [created ] kernel timer
  0:   [created ] kernel command queue
@@ -21,9 +21,9 @@
  0:     storage service ....................................................
  0:       queue created
  0:       started storage service thread
- 0:     storage service .............................................. 0.002 s
+ 0:     storage service .............................................. 0.061 s
  0:     [created ] kernel storage service
- 0:   starting storage service ....................................... 0.010 s
+ 0:   starting storage service ....................................... 0.252 s
  0:   waiting for composition task .........................................
  1: composing ..............................................................
  1:   executing OnStartup methods ..........................................
@@ -51,7 +51,9 @@
  1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
- 1:     WARNING: long running 00.110s  ArrayVectorExtensions.Init
+ 1:     WARNING: long running 00.128s  ArrayVectorExtensions.Init
+ 1:     WARNING: long running 00.241s  Converter.Init
+ 1:     WARNING: long running 00.102s  BitmapConvertible.Init
  1:     [cache miss] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Runtime.Base, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
@@ -145,9 +147,10 @@
  1:       [rule] RenderFormBinding
  1:       [rule] RenderTaskProperties
  1:       [rule] ResourceManager
- 1:     registering rules ............................................ 0.015 s
- 1:     WARNING: long running 00.068s  EnvironmentBoxRule.Init
- 1:   executing OnStartup methods .................................... 0.787 s
+ 1:     registering rules ............................................ 0.023 s
+ 1:     WARNING: long running 00.108s  EnvironmentBoxRule.Init
+ 1:     WARNING: long running 00.133s  SlimDx9Renderer.ExecuteOnStartup
+ 1:   executing OnStartup methods .................................... 2.844 s
  1:   adding type infos ....................................................
  1:     [cache miss] SimpleViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Math.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -173,19 +176,76 @@
  1:     [cache hit ] Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.SlimDx, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
  1:     [cache hit ] Aardvark.Rendering.Hlsl, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
- 1:   adding type infos .............................................. 0.028 s
- 1: composing ........................................................ 0.815 s
- 0:   waiting for composition task ................................... 0.826 s
- 0: initializing kernel .............................................. 0.853 s
+ 1:   adding type infos .............................................. 0.173 s
+ 1: composing ........................................................ 3.018 s
+ 0:   waiting for composition task ................................... 3.049 s
+ 0: initializing kernel .............................................. 3.682 s
  0: kernel: starting
  0: starting kernel                                                    0.001 s
  0: Texture filtering capabilities:
  0:   MaxAnisotropy: 16
- 0: 15 fps
+ 0: 315 fps
+ 0: 396 fps
+ 0: 625 fps
+ 0: 636 fps
+ 0: 646 fps
+ 0: 663 fps
+ 0: 674 fps
+ 0: 46 fps
+ 0: 71 fps
+ 0: 201 fps
+ 0: 153 fps
+ 0: log2 of sensitivity ............. 0,50
+ 0: sensitivity ..................... 1,41
+ 0: 137 fps
+ 0: 146 fps
+ 0: 146 fps
+ 0: 148 fps
+ 0: 143 fps
+ 0: 146 fps
+ 0: 146 fps
+ 0: 147 fps
+ 0: 123 fps
+ 0: 150 fps
+ 0: 133 fps
+ 0: 139 fps
+ 0: 148 fps
+ 0: 125 fps
+ 0: 136 fps
+ 0: 125 fps
+ 0: 138 fps
+ 0: 154 fps
+ 0: 150 fps
+ 0: 153 fps
+ 0: 151 fps
+ 0: 134 fps
+ 0: 135 fps
+ 0: 146 fps
+ 0: 146 fps
+ 0: 146 fps
+ 0: 127 fps
+ 0: 144 fps
+ 0: 137 fps
+ 0: 137 fps
+ 0: 131 fps
+ 0: 149 fps
+ 0: 162 fps
+ 0: 144 fps
+ 0: 132 fps
+ 0: 146 fps
+ 0: 98 fps
+ 0: 41 fps
+ 0: 71 fps
+ 0: 56 fps
+ 0: 42 fps
+ 0: 68 fps
+ 0: 42 fps
+ 0: 63 fps
+ 0: 24 fps
  0: Disposing Textures
  0: kernel: stopped
  0: stopping storage service thread
  0: stopped storage service thread
  0: cleaning up temp files done
- 0: shutting down   : 1/30/2015 3:58:49 PM
+ 0: shutting down   : 1/30/2015 5:43:08 PM
  0: WARNING: exiting application...

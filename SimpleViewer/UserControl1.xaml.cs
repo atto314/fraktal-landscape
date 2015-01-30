@@ -37,6 +37,80 @@ namespace FractalLandscape
             fractalTerrainApp.shutdown();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            fractalTerrainApp.generateNewScene();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if(fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.terrainHasWater = true;
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            fractalTerrainApp.terrainHasWater = false;
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            Slider slider = (Slider)sender;
+
+            double value = slider.Value;
+
+            value = value/4.9d;
+
+            fractalTerrainApp.terrainRoughness = (float)value;
+        }
+
+        private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            Slider slider = (Slider)sender;
+
+            double value = slider.Value;
+
+            value = value * 1.25d;
+
+            fractalTerrainApp.terrainFlatness = (float)value;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            TextBox box = (TextBox)sender;
+            
+            double value;
+
+            bool success = Double.TryParse(box.Text,out value);
+
+            if(!success)
+            {
+                return;
+            }
+
+            int result = (int)value;
+
+            fractalTerrainApp.lodLevel = result;
+        }
+
 
     }
 }
