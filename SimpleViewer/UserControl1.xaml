@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             Title="Fractal Landscape Controls" Height="395.944" Width="259.416" Closing="Window_Closing">
+             Title="Fractal Landscape Controls" Height="439.277" Width="259.416" Closing="Window_Closing">
     <Grid>
-        <Button Margin="10,10,10,308" Click="Button_Click">Generate new Terrain!</Button>
+        <Button Margin="10,10,10,351" Click="Button_Click">Generate new Terrain!</Button>
         <CheckBox Content="Enable Water" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" IsChecked="True"/>
         <Label Content="New Terrain Parameters:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
         <Slider HorizontalAlignment="Left" Margin="85,120,0,0" VerticalAlignment="Top" Width="155" ValueChanged="Slider_ValueChanged" Minimum="1" Maximum="100" Value="50"/>
@@ -13,14 +13,19 @@
         <Label Content="1" HorizontalAlignment="Left" Margin="85,143,0,0" VerticalAlignment="Top" Height="25"/>
         <Label Content="100&#xD;&#xA;" HorizontalAlignment="Left" Margin="205,143,0,0" VerticalAlignment="Top" Height="25"/>
         <Label Content="     |&#xD;&#xA;default&#xA;" HorizontalAlignment="Left" Margin="140,143,0,0" VerticalAlignment="Top" Height="35" FontSize="10" Width="60"/>
-        <Slider HorizontalAlignment="Left" Margin="92,189,0,0" VerticalAlignment="Top" Width="148" Minimum="1" Maximum="5"/>
+        <Slider HorizontalAlignment="Left" Margin="92,189,0,0" VerticalAlignment="Top" Width="148" Minimum="1.5" Maximum="5" ValueChanged="Slider_ValueChanged_1"/>
         <Label Content="Flatness:" HorizontalAlignment="Left" Margin="9,184,0,0" VerticalAlignment="Top"/>
         <Label Content="1" HorizontalAlignment="Left" Margin="85,212,0,0" VerticalAlignment="Top" Height="25"/>
         <Label Content="&#xD;&#xA;" HorizontalAlignment="Left" Margin="-724,-93,0,0" VerticalAlignment="Top" Height="25"/>
         <Label Content="5&#xA;" HorizontalAlignment="Left" Margin="218,212,0,0" VerticalAlignment="Top" Height="25"/>
-        <Label Content="Iterations:" HorizontalAlignment="Left" Margin="10,250,0,0" VerticalAlignment="Top"/>
+        <Label Content="Iterations:" HorizontalAlignment="Left" Margin="5,250,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Left" Height="20" Margin="72,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="28" Text="{Binding ElementName=iterSlider,Path=Value}" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
         <Slider Name="iterSlider" HorizontalAlignment="Left" Margin="105,255,0,0" VerticalAlignment="Top" Width="135" Minimum="1" Maximum="11" Value="8" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        <Label Content="Size:" HorizontalAlignment="Left" Margin="32,290,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="22" Margin="71,294,0,0" TextWrapping="Wrap" Text="75" VerticalAlignment="Top" Width="29" TextAlignment="Center" TextChanged="TextBox_TextChanged_1"/>
+        <ComboBox HorizontalAlignment="Left" Margin="9,368,0,0" VerticalAlignment="Top" Width="120" Height="24" SelectionChanged="ComboBox_SelectionChanged" Loaded="ComboBox_Loaded" >
+        </ComboBox>
+        <Label Content="Colorization:" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

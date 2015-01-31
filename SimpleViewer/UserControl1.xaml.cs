@@ -83,7 +83,7 @@ namespace FractalLandscape
 
             double value = slider.Value;
 
-            value = value * 1.25d;
+            value = value * 1.0d;
 
             fractalTerrainApp.terrainFlatness = (float)value;
         }
@@ -109,6 +109,57 @@ namespace FractalLandscape
             int result = (int)value;
 
             fractalTerrainApp.lodLevel = result;
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            TextBox box = (TextBox)sender;
+
+            double value;
+
+            bool success = Double.TryParse(box.Text, out value);
+
+            if (!success)
+            {
+                return;
+            }
+
+            float result = (float)value;
+
+            fractalTerrainApp.terrainScale = result;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            var comboBox = sender as ComboBox;
+
+            int value = comboBox.SelectedIndex;
+
+            fractalTerrainApp.colorIndex = value;
+        }
+
+        private void ComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> data = new List<string>();
+            data.Add("Landscape");
+            data.Add("Greyscale");
+            data.Add("Rainbow");
+
+            var comboBox = sender as ComboBox;
+
+            comboBox.ItemsSource = data;
+
+            comboBox.SelectedIndex = 0;
         }
 
 

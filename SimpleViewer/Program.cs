@@ -46,6 +46,8 @@ namespace FractalLandscape
 
             var toolsWindow = new UserControl1();
 
+            System.Windows.Forms.Integration.ElementHost.EnableModelessKeyboardInterop(toolsWindow);
+
             // Initialization method using SlimDx9Renderer
             myApp.init(new SlimDx9Renderer(), toolsWindow);
 
