@@ -17,7 +17,7 @@ namespace FractalLandscape
     {
 
         private SimpleRenderApplication app;
-        private FractalTerrain myTerrain;
+        public FractalTerrain myTerrain;
         private UserControl1 toolsWindow;
 
         public float terrainScale = 75.0f;
@@ -26,6 +26,7 @@ namespace FractalLandscape
         public bool terrainHasWater = true;
         public bool colorizeTerrain = true;
         public int lodLevel = 8;
+        public int colorIndex = 0;
 
         public void init(SlimDx9Renderer Dx9Renderer, UserControl1 toolsWindow)
         {
@@ -36,7 +37,7 @@ namespace FractalLandscape
             app.Init();
 
             // Default camera
-            app.MainViewTrafo.Location.Val = new V3d(20, 20, 20);
+            app.MainViewTrafo.Location.Val = (new V3d(20, 20, 20))*5;
             app.MainViewTrafo.LookAt.Val = V3d.Zero;
 
             // Background color
@@ -134,7 +135,7 @@ namespace FractalLandscape
         {
 
 
-            myTerrain = new FractalTerrain(terrainScale, terrainHasWater, colorizeTerrain);
+            myTerrain = new FractalTerrain(terrainScale, terrainHasWater, colorizeTerrain, colorIndex);
 
             var group = Sg.Group();
 

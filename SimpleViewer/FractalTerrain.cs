@@ -13,7 +13,7 @@ using Aardvark.State;
 
 namespace FractalLandscape
 {
-    class MyVertex
+    public class MyVertex
     {
         public float x { get; set; }
         public float y { get; set; }
@@ -38,7 +38,7 @@ namespace FractalLandscape
 
     }
 
-    class MyQuad
+    public class MyQuad
     {
         public MyVertex v1 { get; set; }
         public MyVertex v2 { get; set; }
@@ -47,12 +47,12 @@ namespace FractalLandscape
 
     }
 
-    class MyColorization
+    public class MyColorization
     {
         public C4b[] colors;
     }
 
-    class MyTerrain
+    public class MyTerrain
     {
         public int size;
 
@@ -73,7 +73,7 @@ namespace FractalLandscape
         }
     }
 
-    class MyTerrainLod
+    public class MyTerrainLod
     {
         public Dictionary<int, MyTerrain> terrainLod { get; set; }
         public Dictionary<int, VertexGeometry> vgLod { get; set; }
@@ -195,7 +195,7 @@ namespace FractalLandscape
         }
     }
 
-    class FractalTerrain
+    public class FractalTerrain
     {
         public float initialScale { get; set; }
 
@@ -204,7 +204,7 @@ namespace FractalLandscape
 
         public bool drawWater;
         public bool colorize;
-        public int selectedColorization;
+        public int selectedColorization = 0;
 
         private Random rand = new Random();
 
@@ -219,12 +219,13 @@ namespace FractalLandscape
 
         private int maxlevel;
 
-        public FractalTerrain(float scale, bool drawWater, bool colorize)
+        public FractalTerrain(float scale, bool drawWater, bool colorize, int colorIndex)
         {
             this.drawWater = drawWater;
             this.colorize = colorize;
             initialScale = scale;
             init();
+            selectColorization(colorIndex);
         }
 
         private void init()
@@ -244,7 +245,7 @@ namespace FractalLandscape
 
             vg = quadToVertexGeometry(startVertices);
 
-            //add default colorizations. maybe make more colorizations?
+            //add default colorization - handmade
             MyColorization defaultCol = new MyColorization();
 
             defaultCol.colors = new C4b[] {
@@ -272,7 +273,46 @@ namespace FractalLandscape
 
 
             colorizations.Add(defaultCol);
-            selectColorization(0);
+            
+
+            //some programmatic colorizations
+            MyColorization grayscaleCol = new MyColorization();
+
+            List<C4b> grayscaleVal = new List<C4b>();
+            int gsvalues = 1000;
+
+            for(int i=0; i<gsvalues; i++)
+            {
+                double curVal = Math.Sqrt((double)i / (double)gsvalues);
+                grayscaleVal.Add(new C4b(curVal, curVal, curVal, 1.0d));
+            }
+
+            grayscaleCol.colors = grayscaleVal.ToArray();
+
+            colorizations.Add(grayscaleCol);
+
+
+
+            MyColorization rainbowCol = new MyColorization();
+
+            List<C4b> rainbowVal = new List<C4b>();
+            int rvalues = 10000;
+
+            float rPortion = 5.0f;
+            float gPortion = 6.0f;
+            float bPortion = 7.0f;
+
+            for (int i = 0; i < rvalues; i++)
+            {
+                double curVal = ((double)i / (double)rvalues);
+                rainbowVal.Add(new C4b((curVal * rPortion) % 1.0d, (curVal * gPortion) % 1.0d, (curVal * bPortion)%1.0d, 1.0d));
+            }
+
+            rainbowCol.colors = rainbowVal.ToArray();
+
+            colorizations.Add(rainbowCol);
+
+            //selectColorization(0);
         }
 
         public void selectColorization(int index)
@@ -533,9 +573,9 @@ namespace FractalLandscape
             result = (float)randNormal*initialScale;
 
             //make the terrain flatter in the first level
-            if(level < ((float)maxlevel/2.0f))
+            if(level < ((float)maxlevel*(2.0f/3.0f)))
             {
-                result = result * 1.0f / flatness;
+                result = result * 1.0f / (float)Math.Pow((double)flatness, 1.1d);
             }
 
             return result;
