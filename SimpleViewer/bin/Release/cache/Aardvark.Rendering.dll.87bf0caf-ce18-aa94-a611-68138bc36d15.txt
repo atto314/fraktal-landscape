@@ -1,0 +1,6 @@
+Aardvark.Rendering.RenderToTextureBindingRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Rendering.RenderControlBindingRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Rendering.RendererBindingRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Rendering.RenderFormBindingRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Rendering.RenderTaskPropertiesRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null
+Aardvark.Rendering.ResourceManagerRule, Aardvark.Rendering, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null

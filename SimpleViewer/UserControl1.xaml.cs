@@ -162,6 +162,15 @@ namespace FractalLandscape
             comboBox.SelectedIndex = 0;
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.centerScene();
+        }
+
 
     }
 }

@@ -131,6 +131,20 @@ namespace FractalLandscape
 
         }
 
+        public void centerScene()
+        {
+            if(myTerrain==null)
+            {
+                return;
+            }
+            app.CenterScene();
+        }
+
+        public void saveScreenshot()
+        {
+            app.SaveScreenshotToDesktop();
+        }
+
         private void initScene()
         {
 

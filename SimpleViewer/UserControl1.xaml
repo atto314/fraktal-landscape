@@ -26,6 +26,7 @@
         <ComboBox HorizontalAlignment="Left" Margin="9,368,0,0" VerticalAlignment="Top" Width="120" Height="24" SelectionChanged="ComboBox_SelectionChanged" Loaded="ComboBox_Loaded" >
         </ComboBox>
         <Label Content="Colorization:" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top"/>
+        <Button Content="Center Terrain" HorizontalAlignment="Left" Margin="141,359,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="Button_Click_1"/>
 
 
     </Grid>
