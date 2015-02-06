@@ -21,6 +21,8 @@ namespace FractalLandscape
 
         public C4b color = C4b.White;
 
+        public MyVertex normal;
+
         public V3f toV3f()
         {
             V3f result = new V3f(x, y, z);
@@ -34,6 +36,29 @@ namespace FractalLandscape
             {
                 z = 0;
             }
+        }
+
+        public void normalizeVector()
+        {
+            float length = this.length();
+
+            x = x / length;
+            y = y / length;
+            z = z / length;
+        }
+
+        public float length()
+        {
+            return (float)Math.Sqrt(x * x + y * y + z * z);
+        }
+
+        public static MyVertex operator -(MyVertex thisVector)
+        {
+            thisVector.x = thisVector.x * (-1);
+            thisVector.y = thisVector.y * (-1);
+            thisVector.z = thisVector.z * (-1);
+
+            return thisVector;
         }
 
     }
@@ -128,6 +153,62 @@ namespace FractalLandscape
             return result;
         }
 
+        private MyVertex averageOfFour(MyVertex v1, MyVertex v2, MyVertex v3, MyVertex v4)
+        {
+            MyVertex result = new MyVertex();
+
+            result.x = (v1.x + v2.x + v3.x + v4.x) / 4;
+            result.y = (v1.y + v2.y + v3.y + v4.y) / 4;
+            result.z = (v1.z + v2.z + v3.z + v4.z) / 4;
+
+            return result;
+        }
+
+        private MyVertex averageOfTwo(MyVertex v1, MyVertex v2)
+        {
+            MyVertex result = new MyVertex();
+
+            result.x = (v1.x + v2.x) / 2;
+            result.y = (v1.y + v2.y) / 2;
+            result.z = (v1.z + v2.z) / 2;
+
+            return result;
+        }
+
+        private MyVertex cross(MyVertex v1, MyVertex v2)
+        {
+            MyVertex result = new MyVertex();
+
+            result.x = (v1.y * v2.z) - (v1.z * v2.y);
+            result.y = (v1.z * v2.x) - (v1.x * v2.z);
+            result.z = (v1.x * v2.y) - (v1.y * v2.x);
+
+            result.normalizeVector();
+
+            return result;
+        }
+
+        private MyVertex vectorBetweenPoints(MyVertex p1, MyVertex p2)
+        {
+            MyVertex result = new MyVertex();
+
+            result.x = p2.x - p1.x;
+            result.y = p2.y - p1.y;
+            result.z = p2.z - p1.z;
+
+            return result;
+        }
+
+        private MyVertex directionBetweenPoints(MyVertex p1, MyVertex p2)
+        {
+            MyVertex result = vectorBetweenPoints(p1,p2);
+
+            result.normalizeVector();
+
+            return result;
+        }
+
+
         private VertexGeometry terrainToVg(MyTerrain terrain)
         {
             //build a VertexGeometry from our collection of vertices
@@ -135,13 +216,59 @@ namespace FractalLandscape
             List<int> IndicesList = new List<int>();
             List<V3f> VerticesList = new List<V3f>();
             List<C4b> ColorsList = new List<C4b>();
+            List<V3f> NormalsList = new List<V3f>();
 
+
+            //Calculate surface normals in a separate generation step.
+            //for each inner vertex, calculate the normal as the vector perpendicular to its (approximate) gradient.
+            for (int y = 1; y < terrain.size - 1; y++)
+            {
+                for (int x = 1; x < terrain.size - 1; x++)
+                {
+                    MyVertex current = terrain.terr[x, y];
+                    MyVertex top = terrain.terr[x, y - 1];
+                    MyVertex right = terrain.terr[x + 1, y];
+                    MyVertex bottom = terrain.terr[x, y + 1];
+                    MyVertex left = terrain.terr[x - 1, y];
+
+                    MyVertex dTop = directionBetweenPoints(current, top);
+                    MyVertex dRight = directionBetweenPoints(current, right);
+                    MyVertex dBottom = directionBetweenPoints(current, bottom);
+                    MyVertex dLeft = directionBetweenPoints(current, left);
+
+                    MyVertex TR = cross(dTop, dRight);
+                    MyVertex BL = cross(dBottom, dLeft);
+
+                    MyVertex RB = cross(dRight, dBottom);
+                    MyVertex LT = cross(dLeft, dTop);
+                    MyVertex norm = averageOfFour(TR, RB, BL, LT);
+
+                    //MyVertex norm = averageOfTwo(TR, BL);
+                    norm.normalizeVector();
+
+                    current.normal = -norm;
+                }
+            }
+            //separate handling of the border vertices
+            for (int index = 0; index < terrain.size; index++)
+            {
+                MyVertex norm = new MyVertex() { x = 0, y = 0, z = 1 };
+
+                terrain.terr[index, 0].normal = norm;
+                terrain.terr[0, index].normal = norm;
+                terrain.terr[index, terrain.size - 1].normal = norm;
+                terrain.terr[terrain.size - 1, index].normal = norm;
+            }
+
+
+            //now add the vertices to our data structure
             //start: add entire top row
             //VerticesList.Add(terrain.terr[0, 0].toV3f());
             for (int x = 0; x < terrain.size; x++ )
             {
                 VerticesList.Add(terrain.terr[x, 0].toV3f());
                 ColorsList.Add(terrain.terr[x, 0].color);
+                NormalsList.Add(terrain.terr[x, 0].normal.toV3f());
             }
 
             //for all vertex positions, take the right, bottom and bottom right neighbours position, add the two missing vertices (bottom and bottom-right) to the vertex list, 
@@ -151,12 +278,14 @@ namespace FractalLandscape
                 //in each column, add the bottom neighbour
                 VerticesList.Add(terrain.terr[0, y + 1].toV3f());
                 ColorsList.Add(terrain.terr[0, y + 1].color);
+                NormalsList.Add(terrain.terr[0, y + 1].normal.toV3f());
 
                 for (int x = 0; x < terrain.size - 1; x++)
                 {
                     //in each row, add the bottom-right neighbour
                     VerticesList.Add(terrain.terr[x + 1, y + 1].toV3f());
                     ColorsList.Add(terrain.terr[x + 1, y + 1].color);
+                    NormalsList.Add(terrain.terr[x + 1, y + 1].normal.toV3f());
 
                     //get the serialized indices
                     int currentRowOffset = terrain.size * y;
@@ -176,9 +305,9 @@ namespace FractalLandscape
                     IndicesList.Add(bottomRightNeighbourIndex);
                     IndicesList.Add(rightNeighbourIndex);
                 }
-
-
             }
+
+
 
             //store the result into a VertexGeometry. 
             var result = new VertexGeometry()
@@ -189,6 +318,9 @@ namespace FractalLandscape
                 Positions = VerticesList.ToArray(),
 
                 Colors = ColorsList.ToArray(),
+
+                Normals = NormalsList.ToArray(),
+
             };
 
             return result;

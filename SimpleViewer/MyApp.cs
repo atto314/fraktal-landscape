@@ -67,7 +67,7 @@ namespace FractalLandscape
             app.ShowGlobalBoundingBox = false;
             app.ShowGlobalAxes = true;
 
-            app.GlobalFillMode = FillMode.Wireframe;
+            app.GlobalFillMode = FillMode.Solid;
             app.Renderer.AntiAliasingMode = AntiAliasingMode.FourSamples;
             //app.CenterScene();
         }
@@ -75,6 +75,30 @@ namespace FractalLandscape
         public void generateNewScene()
         {
             initScene();
+        }
+
+        public void rasterizeWireframe(bool state)
+        {
+            if(!state)
+            {
+                this.app.GlobalFillMode = FillMode.Solid;
+            }
+            else
+            {
+                this.app.GlobalFillMode = FillMode.Wireframe;
+            }
+        }
+
+        public void enableShading(bool state)
+        {
+            if (state)
+            {
+                this.app.HeadLightEnabled = true;
+            }
+            else
+            {
+                this.app.HeadLightEnabled = false;
+            }
         }
 
         public void run()
@@ -155,9 +179,13 @@ namespace FractalLandscape
 
             //generate a terrain up to a certain lod level, then put the result into the scene graph
             float currentRoughness = 1.0f / (terrainRoughness / 10.0f);
-            myTerrain.buildTerrain(lodLevel, currentRoughness, terrainFlatness); 
+            myTerrain.buildTerrain(lodLevel, currentRoughness, terrainFlatness);
 
-            group.Add(myTerrain.toVertexGeometrySet(lodLevel));
+            var vgs = myTerrain.toVertexGeometrySet(lodLevel);
+
+            group.Add(vgs);
+
+            //add shading model/description here
 
             app.SemanticSceneGraph = group;
         }

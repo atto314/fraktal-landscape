@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             Title="Fractal Landscape Controls" Height="439.277" Width="259.416" Closing="Window_Closing">
+             Title="Fractal Landscape Controls" Height="529.277" Width="259.416" Closing="Window_Closing">
     <Grid>
-        <Button Margin="10,10,10,351" Click="Button_Click">Generate new Terrain!</Button>
+        <Button Margin="10,10,10,441" Click="Button_Click">Generate new Terrain!</Button>
         <CheckBox Content="Enable Water" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" IsChecked="True"/>
         <Label Content="New Terrain Parameters:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
         <Slider HorizontalAlignment="Left" Margin="85,120,0,0" VerticalAlignment="Top" Width="155" ValueChanged="Slider_ValueChanged" Minimum="1" Maximum="100" Value="50"/>
@@ -27,6 +27,9 @@
         </ComboBox>
         <Label Content="Colorization:" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top"/>
         <Button Content="Center Terrain" HorizontalAlignment="Left" Margin="141,359,0,0" VerticalAlignment="Top" Width="100" Height="33" Click="Button_Click_1"/>
+        <Label Content="Rendering:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Wireframe" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1" IsChecked="False"/>
+        <CheckBox Content="Shading" HorizontalAlignment="Left" Margin="10,448,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_2" Unchecked="CheckBox_Unchecked_2" IsChecked="True"/>
 
 
     </Grid>

@@ -171,6 +171,42 @@ namespace FractalLandscape
             fractalTerrainApp.centerScene();
         }
 
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.rasterizeWireframe(true);
+        }
+
+        private void CheckBox_Unchecked_1(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.rasterizeWireframe(false);
+        }
+
+        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.enableShading(true);
+        }
+
+        private void CheckBox_Unchecked_2(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.enableShading(false);
+        }
+
 
     }
 }
