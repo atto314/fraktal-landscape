@@ -241,7 +241,25 @@ namespace FractalLandscape
 
                     MyVertex RB = cross(dRight, dBottom);
                     MyVertex LT = cross(dLeft, dTop);
-                    MyVertex norm = averageOfFour(TR, RB, BL, LT);
+                    MyVertex norm1 = averageOfFour(TR, RB, BL, LT);
+
+                    MyVertex topright = terrain.terr[x + 1, y - 1];
+                    MyVertex bottomright = terrain.terr[x + 1, y + 1];
+                    MyVertex topleft = terrain.terr[x - 1, y - 1];
+                    MyVertex bottomleft = terrain.terr[x - 1, y + 1];
+
+                    MyVertex dTR = directionBetweenPoints(current, topright);
+                    MyVertex dBR = directionBetweenPoints(current, bottomright);
+                    MyVertex dTL = directionBetweenPoints(current, topleft);
+                    MyVertex dBL = directionBetweenPoints(current, bottomleft);
+
+                    MyVertex TRBR = cross(dTR, dBR);
+                    MyVertex BRBL = cross(dBR, dBL);
+                    MyVertex BLTL = cross(dBL, dTL);
+                    MyVertex TLTR = cross(dTL, dTR);
+                    MyVertex norm2 = averageOfFour(TRBR, BRBL, BLTL, TLTR);
+
+                    MyVertex norm = averageOfTwo(norm1, norm2);
 
                     //MyVertex norm = averageOfTwo(TR, BL);
                     norm.normalizeVector();
