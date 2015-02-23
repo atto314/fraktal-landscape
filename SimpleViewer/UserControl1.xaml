@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             Title="Fractal Landscape Controls" Height="529.277" Width="259.416" Closing="Window_Closing">
+             Title="Fractal Landscape Controls" Height="610.277" Width="259.416" Closing="Window_Closing">
     <Grid>
-        <Button Margin="10,10,10,441" Click="Button_Click">Generate new Terrain!</Button>
+        <Button Margin="10,10,10,522" Click="Button_Click">Generate new Terrain!</Button>
         <CheckBox Content="Enable Water" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" IsChecked="True"/>
         <Label Content="New Terrain Parameters:" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top"/>
         <Slider HorizontalAlignment="Left" Margin="85,120,0,0" VerticalAlignment="Top" Width="155" ValueChanged="Slider_ValueChanged" Minimum="1" Maximum="100" Value="50"/>
@@ -30,6 +30,10 @@
         <Label Content="Rendering:" HorizontalAlignment="Left" Margin="10,397,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Wireframe" HorizontalAlignment="Left" Margin="10,428,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_1" Unchecked="CheckBox_Unchecked_1" IsChecked="False"/>
         <CheckBox Content="Shading" HorizontalAlignment="Left" Margin="10,448,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_2" Unchecked="CheckBox_Unchecked_2" IsChecked="True"/>
+        <CheckBox Content="Optimize Mesh" HorizontalAlignment="Left" Margin="10,468,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked_3" Unchecked="CheckBox_Unchecked_3"/>
+        <Label Content="Precision:" HorizontalAlignment="Left" Margin="6,483,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Height="20" Margin="73,487,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="28" Text="{Binding Value, ElementName=iterSlider_Copy}" TextAlignment="Center" TextChanged="TextBox_TextChanged_2"/>
+        <Slider x:Name="iterSlider_Copy" HorizontalAlignment="Left" Margin="106,488,0,0" VerticalAlignment="Top" Width="135" Minimum="1" Maximum="100" Value="75" IsSnapToTickEnabled="True" TickFrequency="0.1"/>
 
 
     </Grid>

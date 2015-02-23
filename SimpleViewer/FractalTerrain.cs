@@ -13,6 +13,70 @@ using Aardvark.State;
 
 namespace FractalLandscape
 {
+    public class MyPoint
+    {
+        public int x = 0;
+        public int y = 0;
+
+        public MyPoint(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public MyPoint halfwayTo(MyPoint other)
+        {
+            MyPoint result = new MyPoint(0, 0);
+            result.x = (this.x + other.x) / 2;
+            result.y = (this.y + other.y) / 2;
+
+            return result;
+        }
+    }
+
+    public class MyLeaf
+    {
+        public MyLeaf(MyPoint minIndex, MyPoint maxIndex, int depth)
+        {
+            this.minIndex = minIndex;
+            this.maxIndex = maxIndex;
+            this.depth = depth;
+
+            bHasChildren = false;
+
+            this.centerIndex = minIndex.halfwayTo(maxIndex);
+        }
+
+        public MyPoint minIndex, maxIndex;
+
+        public int depth;
+
+        public MyPoint centerIndex;
+
+        private bool bHasChildren;
+
+        public MyLeaf topLeftChild;
+        public MyLeaf topRightChild;
+        public MyLeaf bottomLeftChild;
+        public MyLeaf bottomRightChild;
+
+        public bool hasChildren()
+        {
+            return bHasChildren;
+        }
+
+        public void addChildren(MyLeaf topLeftChild, MyLeaf topRightChild, MyLeaf bottomLeftChild, MyLeaf bottomRightChild)
+        {
+            this.topLeftChild = topLeftChild;
+            this.topRightChild = topRightChild;
+            this.bottomLeftChild = bottomLeftChild;
+            this.bottomRightChild = bottomRightChild;
+            bHasChildren = true;
+        }
+
+    }
+
+
     public class MyVertex
     {
         public float x { get; set; }
@@ -22,6 +86,9 @@ namespace FractalLandscape
         public C4b color = C4b.White;
 
         public MyVertex normal;
+
+        //the list index. if it is not -1, it is already in the vertex list and its index can be added to the index list
+        public int listIndex = -1;
 
         public V3f toV3f()
         {
@@ -81,6 +148,8 @@ namespace FractalLandscape
     {
         public int size;
 
+        public int runningIndex = 0; //running index variable for generation of vertexList
+
         public MyTerrain(int _size)
         {
             size = _size;
@@ -103,11 +172,14 @@ namespace FractalLandscape
         public Dictionary<int, MyTerrain> terrainLod { get; set; }
         public Dictionary<int, VertexGeometry> vgLod { get; set; }
 
-        public MyTerrainLod()
+        public MyTerrainLod(float errorThreshold)
         {
+            this.errorThreshold = errorThreshold;
             terrainLod = new Dictionary<int, MyTerrain>();
             vgLod = new Dictionary<int, VertexGeometry>();
         }
+
+        public float errorThreshold;
 
         public void setTerrainLod(int level, MyTerrain terrain)
         {
@@ -128,14 +200,21 @@ namespace FractalLandscape
             }
         }
 
-        public void render()
+        public void render(bool optimized)
         {
 
             foreach (int level in terrainLod.Keys)
             {
                 MyTerrain currentTerr = this.getTerrainLod(level);
 
-                vgLod.Add(level, this.terrainToVg(currentTerr));
+                if (!optimized)
+                {
+                    vgLod.Add(level, this.terrainToVg(currentTerr));
+                }
+                else
+                {
+                    vgLod.Add(level, this.terrainToVgOptimized(currentTerr));
+                }
             }
         }
 
@@ -343,6 +422,278 @@ namespace FractalLandscape
 
             return result;
         }
+
+        private VertexGeometry terrainToVgOptimized(MyTerrain terrain)
+        {
+            //build a VertexGeometry from our collection of vertices
+
+            List<int> IndicesList = new List<int>();
+            List<V3f> VerticesList = new List<V3f>();
+            List<C4b> ColorsList = new List<C4b>();
+            List<V3f> NormalsList = new List<V3f>();
+
+
+            //Calculate surface normals in a separate generation step.
+            //for each inner vertex, calculate the normal as the vector perpendicular to its (approximate) gradient.
+            for (int y = 1; y < terrain.size - 1; y++)
+            {
+                for (int x = 1; x < terrain.size - 1; x++)
+                {
+                    MyVertex current = terrain.terr[x, y];
+                    MyVertex top = terrain.terr[x, y - 1];
+                    MyVertex right = terrain.terr[x + 1, y];
+                    MyVertex bottom = terrain.terr[x, y + 1];
+                    MyVertex left = terrain.terr[x - 1, y];
+
+                    MyVertex dTop = directionBetweenPoints(current, top);
+                    MyVertex dRight = directionBetweenPoints(current, right);
+                    MyVertex dBottom = directionBetweenPoints(current, bottom);
+                    MyVertex dLeft = directionBetweenPoints(current, left);
+
+                    MyVertex TR = cross(dTop, dRight);
+                    MyVertex BL = cross(dBottom, dLeft);
+
+                    MyVertex RB = cross(dRight, dBottom);
+                    MyVertex LT = cross(dLeft, dTop);
+                    MyVertex norm1 = averageOfFour(TR, RB, BL, LT);
+
+                    MyVertex topright = terrain.terr[x + 1, y - 1];
+                    MyVertex bottomright = terrain.terr[x + 1, y + 1];
+                    MyVertex topleft = terrain.terr[x - 1, y - 1];
+                    MyVertex bottomleft = terrain.terr[x - 1, y + 1];
+
+                    MyVertex dTR = directionBetweenPoints(current, topright);
+                    MyVertex dBR = directionBetweenPoints(current, bottomright);
+                    MyVertex dTL = directionBetweenPoints(current, topleft);
+                    MyVertex dBL = directionBetweenPoints(current, bottomleft);
+
+                    MyVertex TRBR = cross(dTR, dBR);
+                    MyVertex BRBL = cross(dBR, dBL);
+                    MyVertex BLTL = cross(dBL, dTL);
+                    MyVertex TLTR = cross(dTL, dTR);
+                    MyVertex norm2 = averageOfFour(TRBR, BRBL, BLTL, TLTR);
+
+                    MyVertex norm = averageOfTwo(norm1, norm2);
+
+                    //MyVertex norm = averageOfTwo(TR, BL);
+                    norm.normalizeVector();
+
+                    current.normal = -norm;
+                }
+            }
+
+            //separate handling of the border vertices
+            for (int index = 0; index < terrain.size; index++)
+            {
+                MyVertex norm = new MyVertex() { x = 0, y = 0, z = 1 };
+
+                terrain.terr[index, 0].normal = norm;
+                terrain.terr[0, index].normal = norm;
+                terrain.terr[index, terrain.size - 1].normal = norm;
+                terrain.terr[terrain.size - 1, index].normal = norm;
+            }
+
+
+            //create a quadtree from our vertices. Check each cell if a subdivision is needed. If so, subdivide.
+            
+            
+            //preconditions
+            MyPoint minIndex = new MyPoint(0, 0);
+            MyPoint maxIndex = new MyPoint(terrain.size - 1, terrain.size - 1);
+            terrain.runningIndex = 0;
+
+            //quadtree and stack for tree traversal.
+            MyLeaf root = new MyLeaf(minIndex, maxIndex, 0);
+
+            Stack<MyLeaf> stack = new Stack<MyLeaf>();
+            stack.Push(root);
+
+            int i = 0;
+
+            //algorithm
+            while(stack.Count != 0 && i <= 100000)   //break when stack is empty 
+            {
+                i++;
+
+                MyLeaf currentLeaf = stack.Pop();
+
+                if(currentLeaf.depth >= terrain.size-2) 
+                {
+                    //if this leaf is at the smalles possible terrain resolution, we can not subdivide further. it is finished
+                    continue;
+                }
+
+                float currentError = calcLeafError(terrain, currentLeaf);
+
+                if(currentError <= errorThreshold)
+                {
+                    //if this leaf's error is smaller than the error threshold, it has enough detail. the leaf is finished
+                    continue;
+                }
+                else
+                {
+                    //if not, then the leaf needs to be subidivided. divide it into four equal parts, assign them as this leaf's children,
+                    //and push them on the stack.
+
+                    //new children are the four equal subdivision results of the current leaf
+                    int newDepth = currentLeaf.depth + 1;
+                    MyLeaf topLeftChild = new MyLeaf(new MyPoint(currentLeaf.minIndex.x, currentLeaf.minIndex.y), new MyPoint(currentLeaf.centerIndex.x, currentLeaf.centerIndex.y), newDepth);
+                    MyLeaf topRightChild = new MyLeaf(new MyPoint(currentLeaf.centerIndex.x, currentLeaf.minIndex.y), new MyPoint(currentLeaf.maxIndex.x, currentLeaf.centerIndex.y), newDepth);
+                    MyLeaf bottomRightChild = new MyLeaf(new MyPoint(currentLeaf.centerIndex.x, currentLeaf.centerIndex.y), new MyPoint(currentLeaf.maxIndex.x, currentLeaf.maxIndex.y), newDepth);
+                    MyLeaf bottomLeftChild = new MyLeaf(new MyPoint(currentLeaf.minIndex.x, currentLeaf.centerIndex.y), new MyPoint(currentLeaf.centerIndex.x, currentLeaf.maxIndex.y), newDepth);
+
+                    //assign the new children as this leaf's children
+                    currentLeaf.addChildren(topLeftChild, topRightChild, bottomLeftChild, bottomRightChild);
+
+                    //push them on the stack
+                    stack.Push(topLeftChild);
+                    stack.Push(topRightChild);
+                    stack.Push(bottomRightChild);
+                    stack.Push(bottomLeftChild);
+
+                    //done
+                }//if
+            }//while
+
+            
+            //the quadtree now contains the final vertices within its nodes that have no children. 
+            //traverse the quadtree. If a leaf is found, add its four corners to the final geometry.
+ 
+            i=0;
+            stack.Push(root);
+
+            while (stack.Count != 0 && i <= 100000)   //break when stack is empty 
+            {
+                i++;
+
+                MyLeaf currentLeaf = stack.Pop();
+
+                if(currentLeaf.hasChildren())
+                {
+                    //this node has children, push them to the stack and continue
+                    stack.Push(currentLeaf.topLeftChild);
+                    stack.Push(currentLeaf.topRightChild);
+                    stack.Push(currentLeaf.bottomLeftChild);
+                    stack.Push(currentLeaf.bottomRightChild);
+
+                    continue;
+                }
+                else
+                {
+                    //this node has no children, the four vertices at its corners belong to the final mesh
+
+                    MyVertex topLeftVertex = getVertex(terrain, currentLeaf.minIndex.x, currentLeaf.minIndex.y);
+                    MyVertex topRightVertex = getVertex(terrain, currentLeaf.maxIndex.x, currentLeaf.minIndex.y);
+                    MyVertex bottomRightVertex = getVertex(terrain, currentLeaf.maxIndex.x, currentLeaf.maxIndex.y);
+                    MyVertex bottomLeftVertex = getVertex(terrain, currentLeaf.minIndex.x, currentLeaf.maxIndex.y);
+
+                    //the square patch represented by this leaf is added as two triangles
+
+                    addVertex(bottomLeftVertex, currentLeaf.minIndex.x, currentLeaf.maxIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+                    addVertex(topRightVertex, currentLeaf.maxIndex.x, currentLeaf.minIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+                    addVertex(topLeftVertex, currentLeaf.minIndex.x, currentLeaf.minIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+
+                    addVertex(bottomLeftVertex, currentLeaf.minIndex.x, currentLeaf.maxIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+                    addVertex(bottomRightVertex, currentLeaf.maxIndex.x, currentLeaf.maxIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+                    addVertex(topRightVertex, currentLeaf.maxIndex.x, currentLeaf.minIndex.y, IndicesList, VerticesList, ColorsList, NormalsList, terrain);
+                }
+
+            }
+
+            //end algorithm
+
+
+
+            //store the result into a VertexGeometry. 
+            var result = new VertexGeometry()
+            {
+
+                Indices = IndicesList.ToArray(),
+
+                Positions = VerticesList.ToArray(),
+
+                Colors = ColorsList.ToArray(),
+
+                Normals = NormalsList.ToArray(),
+
+            };
+
+            return result;
+        }
+
+        public float calcLeafError(MyTerrain terrain, MyLeaf leaf)
+        {
+            //returns the error (= height field difference) between this leaf's corner points and the actual heightfield values
+            float result = 0;
+
+            //corner vertices and center vertex
+            MyVertex topLeft = getVertex(terrain, leaf.minIndex.x, leaf.minIndex.y);
+            MyVertex topRight = getVertex(terrain, leaf.maxIndex.x, leaf.minIndex.y);
+            MyVertex bottomLeft = getVertex(terrain, leaf.minIndex.x, leaf.maxIndex.y);
+            MyVertex bottomRight = getVertex(terrain, leaf.maxIndex.x, leaf.maxIndex.y);
+            MyVertex center = getVertex(terrain, leaf.centerIndex.x, leaf.centerIndex.y);
+
+            //the vertices interpolated in the middle of two edges, and their actual values
+            MyVertex topInterp = averageOfTwo(topLeft, topRight);
+            MyVertex topActual = getVertex(terrain, leaf.centerIndex.x, leaf.minIndex.y);
+            MyVertex rightInterp = averageOfTwo(topRight, bottomRight);
+            MyVertex rightActual = getVertex(terrain, leaf.maxIndex.x, leaf.centerIndex.y);
+            MyVertex bottomInterp = averageOfTwo(bottomRight, bottomLeft);
+            MyVertex bottomActual = getVertex(terrain, leaf.centerIndex.x, leaf.maxIndex.y);
+            MyVertex leftInterp = averageOfTwo(bottomLeft, topLeft);
+            MyVertex leftActual = getVertex(terrain, leaf.minIndex.x, leaf.centerIndex.y);
+            MyVertex centerInterp = averageOfFour(topLeft, topRight, bottomRight, bottomLeft);
+
+            //the height field differences
+            float errorTop = Math.Abs(topInterp.z - topActual.z);
+            float errorRight = Math.Abs(rightInterp.z - rightActual.z);
+            float errorBottom = Math.Abs(bottomInterp.z - bottomActual.z);
+            float errorLeft = Math.Abs(leftInterp.z - leftActual.z);
+            float errorCenter = Math.Abs(centerInterp.z - center.z);
+
+            //the overall error is the maximum of the individual errors
+            result = Math.Max(errorTop, Math.Max(errorRight, Math.Max(errorBottom, Math.Max(errorLeft, errorCenter)))); 
+
+            return result;
+        }
+
+        public MyVertex getVertex(MyTerrain terrain, int xIndex, int yIndex)
+        {
+            return terrain.terr[xIndex, yIndex];
+        }
+
+        public void addVertex(MyVertex vert, int xIndex, int yIndex, List<int> IndicesList, List<V3f> VerticesList, List<C4b> ColorsList, List<V3f> NormalsList, MyTerrain terrain)
+        {
+            //check if this vertex already exists within the vertexList. if yes, append only its index to the index list. 
+            //if no, calculate its index and enter the vertex into the vertexList.
+
+            if(vert.listIndex == -1)
+            {
+                //does not exist yet
+                //int index = terrain.size * yIndex + xIndex;
+
+                int index = terrain.runningIndex;
+
+                VerticesList.Add(vert.toV3f());
+                ColorsList.Add(vert.color);
+                NormalsList.Add(vert.normal.toV3f());
+
+                vert.listIndex = index;
+
+                IndicesList.Add(vert.listIndex);
+
+                terrain.runningIndex = terrain.runningIndex + 1;
+
+                return;
+            }
+            else
+            {
+                //already exists
+                IndicesList.Add(vert.listIndex);
+                return;
+            }
+
+        }
     }
 
     public class FractalTerrain
@@ -354,7 +705,9 @@ namespace FractalLandscape
 
         public bool drawWater;
         public bool colorize;
+        public bool optimizeTerrain;
         public int selectedColorization = 0;
+        public float errorThreshold;
 
         private Random rand = new Random();
 
@@ -376,12 +729,14 @@ namespace FractalLandscape
             initialScale = scale;
             init();
             selectColorization(colorIndex);
+            optimizeTerrain = false;
+            errorThreshold = 0.0f;
         }
 
         private void init()
         {
             //base mesh is a single plane
-            terrainLod = new MyTerrainLod();
+            terrainLod = new MyTerrainLod(errorThreshold);
             colorizations = new List<MyColorization>();
 
             startVertices = new MyQuad();
@@ -515,7 +870,7 @@ namespace FractalLandscape
                 }
             }
 
-            terrainLod.render();
+            terrainLod.render(optimizeTerrain);
         }
 
         private void generateNewTerrainValues(MyTerrain currentTerrain, int currentLevel)

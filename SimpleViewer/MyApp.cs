@@ -25,8 +25,10 @@ namespace FractalLandscape
         public float terrainFlatness = 1.5f;
         public bool terrainHasWater = true;
         public bool colorizeTerrain = true;
+        public bool optimizeTerrain = false;
         public int lodLevel = 8;
         public int colorIndex = 0;
+        public float errorThreshold = 0.0f;
 
         public void init(SlimDx9Renderer Dx9Renderer, UserControl1 toolsWindow)
         {
@@ -169,11 +171,21 @@ namespace FractalLandscape
             app.SaveScreenshotToDesktop();
         }
 
+        public void setOptimizeTerrain(bool state)
+        {
+            this.optimizeTerrain = state;
+            if(myTerrain==null)
+            {
+                return;
+            }
+            myTerrain.optimizeTerrain = this.optimizeTerrain;
+        }
+
         private void initScene()
         {
-
-
             myTerrain = new FractalTerrain(terrainScale, terrainHasWater, colorizeTerrain, colorIndex);
+            myTerrain.optimizeTerrain = this.optimizeTerrain;
+            myTerrain.errorThreshold = this.errorThreshold;
 
             var group = Sg.Group();
 

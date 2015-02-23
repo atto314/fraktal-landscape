@@ -207,6 +207,47 @@ namespace FractalLandscape
             fractalTerrainApp.enableShading(false);
         }
 
+        private void CheckBox_Checked_3(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.setOptimizeTerrain(true);
+        }
+
+        private void CheckBox_Unchecked_3(object sender, RoutedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+            fractalTerrainApp.setOptimizeTerrain(false);
+        }
+
+        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
+        {
+            if (fractalTerrainApp == null)
+            {
+                return;
+            }
+
+            TextBox box = (TextBox)sender;
+
+            double value;
+
+            bool success = Double.TryParse(box.Text, out value);
+
+            if (!success)
+            {
+                return;
+            }
+
+            float result = (float)value;
+
+            fractalTerrainApp.errorThreshold = result;
+        }
+
 
     }
 }
