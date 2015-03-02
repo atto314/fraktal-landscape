@@ -200,11 +200,13 @@ namespace FractalLandscape
             }
         }
 
-        public void render(bool optimized)
+        public void render(bool optimized, bool allLevels)
         {
-
+            if (allLevels)
+            {
             foreach (int level in terrainLod.Keys)
             {
+
                 MyTerrain currentTerr = this.getTerrainLod(level);
 
                 if (!optimized)
@@ -216,6 +218,22 @@ namespace FractalLandscape
                     vgLod.Add(level, this.terrainToVgOptimized(currentTerr));
                 }
             }
+            }
+            else
+            {
+                int maxlevel = terrainLod.Max(t => t.Key);
+                MyTerrain currentTerr = this.getTerrainLod(maxlevel);
+
+                if (!optimized)
+                {
+                    vgLod.Add(maxlevel, this.terrainToVg(currentTerr));
+                }
+                else
+                {
+                    vgLod.Add(maxlevel, this.terrainToVgOptimized(currentTerr));
+                }
+            }
+
         }
 
         public MyTerrain getTerrainLod(int level)
@@ -573,8 +591,8 @@ namespace FractalLandscape
                     //this node has children, push them to the stack and continue
                     stack.Push(currentLeaf.topLeftChild);
                     stack.Push(currentLeaf.topRightChild);
-                    stack.Push(currentLeaf.bottomLeftChild);
                     stack.Push(currentLeaf.bottomRightChild);
+                    stack.Push(currentLeaf.bottomLeftChild);
 
                     continue;
                 }
@@ -722,11 +740,12 @@ namespace FractalLandscape
 
         private int maxlevel;
 
-        public FractalTerrain(float scale, bool drawWater, bool colorize, int colorIndex)
+        public FractalTerrain(float scale, bool drawWater, bool colorize, int colorIndex, float errorThreshold)
         {
             this.drawWater = drawWater;
             this.colorize = colorize;
             initialScale = scale;
+            this.errorThreshold = errorThreshold;
             init();
             selectColorization(colorIndex);
             optimizeTerrain = false;
@@ -870,7 +889,7 @@ namespace FractalLandscape
                 }
             }
 
-            terrainLod.render(optimizeTerrain);
+            terrainLod.render(optimizeTerrain,false);
         }
 
         private void generateNewTerrainValues(MyTerrain currentTerrain, int currentLevel)

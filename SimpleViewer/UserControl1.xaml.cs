@@ -245,6 +245,8 @@ namespace FractalLandscape
 
             float result = (float)value;
 
+            result = result / 50.0f;
+
             fractalTerrainApp.errorThreshold = result;
         }
 
